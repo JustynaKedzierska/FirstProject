@@ -6,8 +6,6 @@ from django.contrib.auth.models import User
 from django.db import models
 
 # Create your models here.
-
-
 QUESTION_TYPE = (
     ('definition', 'definition'),
     ('exercise', 'exercise'),
@@ -15,14 +13,8 @@ QUESTION_TYPE = (
 
 LEVEL = (
     ('junior', 'junior'),
-    ('min', 'mid'),
+    ('mid', 'mid'),
     ('senior', 'senior'),
-
-)
-
-PUBLIC = (
-    ('yes', 'yes'),
-    ('true', 'true'),
 
 )
 
@@ -35,27 +27,32 @@ class Language(models.Model):
 
 
 class Question(models.Model):
-    tittle = models.CharField(max_length=64)
-    content = models.TextField()
-    question_type = models.CharField(choices=QUESTION_TYPE, max_length=10)
+    title = models.CharField(max_length=64)
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
     created = models.DateTimeField(auto_now_add=True)
-    level = models.CharField(choices=LEVEL, max_length=10)
-    group = models.ManyToManyField('Group')
     language = models.ForeignKey(Language, on_delete=models.CASCADE)
-    public = models.CharField(choices=PUBLIC, max_length=10)
+    question_type = models.CharField(choices=QUESTION_TYPE, max_length=10)
+    level = models.CharField(choices=LEVEL, max_length=10)
+    content = models.TextField()
 
     def __str__(self):
-        return self.tittle
+        return self.title
 
 
-class Group(models.Model):
+class QuestionList(models.Model):
     name = models.CharField(max_length=64)
-    user = models.ManyToManyField(User)
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    question = models.ManyToManyField(Question)
 
     def __str__(self):
         return self.name
 
 
-from django.db import models
+class Interview(models.Model):
+    leader = models.ForeignKey(User, on_delete=models.CASCADE)
+    first_name = models.CharField(max_length=64)
+    last_name = models.CharField(max_length=64)
+    date = models.DateField()
 
-# Create your models here.
+
+
