@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block content %}
+   <form action="" method="post">
+   {% csrf_token %}
+   {{ form.as_p }}
+       {%  for question in object_list%}
+       <ol>Pytanie:  {{ question.tittle }} <br>
+           Typ pytania: {{ question.question_type }} <br>
+           Data dodania: {{ question.created }} <br>
+           Poziom: {{ question.level }} <br>
+           Jezyk: {{ question.language }} <br>
+           Publiczny: {{ question.public }} <br>
+           Treść: {{ question.content }} <br>
+       </ol>
+       {%  endfor %}
+   <p> <a href="index"> Wróć na stronę główna: </a></p>
+   </form>
+{% endblock %}
+
+
+{##}
+{#  tittle = models.CharField(max_length=64)#}
+{#    content = models.TextField()#}
+{#    question_type = models.CharField(choices=QUESTION_TYPE, max_length=10)#}
+{#    created = models.DateTimeField(auto_now_add=True)#}
+{#    level = models.CharField(choices=LEVEL, max_length=10)#}
+{#    # group = models.ManyToManyField('Group')#}
+{#    language = models.ForeignKey(Language, on_delete=models.CASCADE)#}
+{#    public = models.CharField(choices=PUBLIC, max_length=10)#}
