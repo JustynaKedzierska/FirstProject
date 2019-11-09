@@ -17,14 +17,20 @@ from django.conf.urls import url
 from django.contrib import admin
 from django.urls import path, include
 
-from HRQuestions.views import UserCreateView, QuestionCreateView, LanguageCreateView, LanguageListView, \
+
+from HRQuestions.views import QuestionCreateView, LanguageCreateView, LanguageListView, \
     LanguageUpdateView, QuestionListView, QuestionUpdateView, LanguageDeleteView, QuestionListCreateView, UserListView, \
-    QuestionListListView, QuestionDeleteView, IndexView
+    QuestionListListView, QuestionDeleteView, IndexView, LoginView, LogoutView, QuestionFilterView, \
+    QuestionListDetailView, QuestionDetailView, QuestionListUpdateView, QuestionListDeleteView, QuestionListFilterView, \
+    HomePageView, UserCreateView
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', IndexView.as_view(), name='index'),
-    url(r'^user/add', UserCreateView.as_view(), name='user-add'),
+    url(r'^admin/', admin.site.urls),
+    url(r'^login', LoginView.as_view(), name='login-list'),
+    url(r'^logout', LogoutView.as_view(), name='logout-list'),
+    url(r'^index', IndexView.as_view(), name='index'),
+    url(r'^$', HomePageView.as_view(), name='home'),
+    url(r'^add_user', UserCreateView.as_view(), name='add-user'),
     url(r'^user/list', UserListView.as_view(), name='user-list'),
     url(r'^question/add', QuestionCreateView.as_view(), name='question-add'),
     url(r'^question/list', QuestionListView.as_view(), name='question-list'),
@@ -34,6 +40,13 @@ urlpatterns = [
     url(r'^language/list', LanguageListView.as_view(), name='language-list'),
     url(r'^language/update/(?P<pk>(\d)+)', LanguageUpdateView.as_view(), name='language-update'),
     url(r'^language/delete/(?P<pk>(\d)+)', LanguageDeleteView.as_view(), name='language-delete'),
-    url(r'^question_group/add', QuestionListCreateView.as_view(), name='question-group-add'),
-    url(r'^question_group/list', QuestionListListView.as_view(), name='question-group-list'),
+    url(r'^question_list/add', QuestionListCreateView.as_view(), name='question-list-add'),
+    url(r'^question_list/list', QuestionListListView.as_view(), name='question-list-list'),
+    url(r'^search/$', QuestionFilterView.as_view(), name='search'),
+    url(r'^question_list/detail/(?P<pk>(\d)+)', QuestionListDetailView.as_view(), name="question-list-detail"),
+    url(r'^question/detail/(?P<pk>(\d)+)', QuestionDetailView.as_view(), name="question-detail"),
+    url(r'^question_list/update/(?P<pk>(\d)+)', QuestionListUpdateView.as_view(), name="question-list-update"),
+    url(r'^question_list/delete/(?P<pk>(\d)+)', QuestionListDeleteView.as_view(), name="question-list-delete"),
+    url(r'^search_questionlist/$', QuestionListFilterView.as_view(), name='search-questionlist'),
+
 ]

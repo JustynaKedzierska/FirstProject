@@ -1,8 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
-   <form action="" method="post">
-   {% csrf_token %}
-   {{ form.as_p }}
+{#    {%  if user %}#}
        {%  for user in object_list%}
        <ol>Nazwa używkownika:  {{ user.username }} <br>
            Imię: {{ user.first_name }} <br>
@@ -10,8 +8,10 @@
            Email: {{ user.email }} <br>
        </ol>
        {%  endfor %}
+{#    {% endif %}#}
    <p> <a href="index"> Wróć na stronę główna: </a></p>
    </form>
+<div class="footer">
+    <h4>HR Question! 2019  Justyna Kędzierska &copy; Wszelkie prawa zastrzeżone</h4>
+</div>
 {% endblock %}
-
-

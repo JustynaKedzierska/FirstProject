@@ -1,0 +1,111 @@
+body{
+	background: repeat url("/static/images/vintage-concrete1.png"); /*from http://subtellepaterns.com*/
+	font-family: "Open Sans", sans-serif;
+  	font-weight: 400;
+	color: #464646;
+	font-size: 17px;
+	text-align: center;
+}
+/* unvisited link */
+a:link {
+  color: white;
+}
+
+/* visited link */
+a:visited {
+  color: white;
+}
+
+/* mouse over link */
+a:hover {
+  color: white;
+}
+
+/* selected link */
+a:active {
+  color: white;
+}
+.jumbotron-fluid{
+	background-color: #447e9b;
+}
+.container {
+	width: 1100px;
+	height: 500px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 20px;
+	margin-bottom: 10px;
+	text-align: left;
+}
+.auth{
+	text-align: center;
+	top: 200px;
+	background: repeat url("/static/images/vintage-concrete1.png");
+}
+.display-4 {
+	font-size: 70px;
+	background-color: #447e9b;
+
+}
+.lead{
+	margin-left: auto;
+	margin-right: auto;
+	width: 1100px;
+	text-align: center;
+	background-color: #447e9b;
+}
+.col-3{
+	/*background-color: #888888;*/
+	height: 600px;
+	width: 1100px;
+	padding: 100px;
+	font-size: 25px;
+	margin: auto;
+}
+
+span{
+	font-size: 30px;
+}
+.footer {
+	position: fixed;
+	text-align: center;
+	width: 100%;
+	background: #447e9b;
+	bottom: 0;
+}
+.index{
+	width: 100%;
+	height: 100px;
+}
+.col-md-6{
+	width: 100%;
+	height: 200px;
+	margin: auto;
+	font-size: 40px;
+	background-color: #447e9b;
+}
+.page-header {
+	position: -webkit-sticky; /* Safari */
+	position: sticky;
+	top: 0;
+	bottom: 20px;
+	background-color: #447e9b;
+	color: #eeeeee;
+	text-transform: uppercase;
+}
+.row {
+	margin: auto;
+	height: 250px;
+}
+.col-3 a{
+	color: #447e9b;
+	font-size: 25px;
+}
+.float-left{
+	text-align: left;
+}
+.pagination{
+	text-align: center;
+	bottom: 20px;
+	margin: auto;
+}

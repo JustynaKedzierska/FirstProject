@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<body>
+{#{% include 'top-line.html' %}#}
+<div class="jumbotron-fluid">
+  <h1 class="display-4">HR Question!</h1>
+  <p class="lead"></p>
+  <hr class="my-4">
+</div>
+<section class="index">
+     <div class="container">
+         <header>
+             <h1> </h1> <br>
+         </header>
+         <div class="row">
+            <div class="col-md-6">
+                 <p> <a href="{% url 'login-list' %}"> Zaloguj się </a></p>
+            </div>
+              <div class="col-md-6">
+                 <p> <a href="{% url 'add-user' %}"> Rejestracja </a></p>
+            </div>
+         </div>
+    </div>
+</section>
+</body>
+<div class="footer">
+    <h4>HR Question! 2019  Justyna Kędzierska &copy; Wszelkie prawa zastrzeżone</h4>
+</div>
+{% endblock %}
+

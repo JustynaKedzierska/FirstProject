@@ -1,9 +1,39 @@
 {% extends 'base.html' %}
 {% block content %}
+<header class="page-header">
+    <nav class="navbar navbar-dark">
+        <a href="/" class="navbar-brand main-logo"></a>
+            <ul class="nav nounderline text-uppercase">
+            <li class="nav-item ml-4">
+                <a href="{% url 'index' %}"> Przejdź do strony głównej </a>
+            </li>
+            <li class="nav-item ml-4">
+                <a href="{% url 'question-list' %}"> Przejdź do pytań </a>
+            </li>
+                {% if user.is_authenticated %}
+            <li class="nav-item ml-4">
+                <a href="{% url 'logout-list' %}">Wyloguj się</a>
+            </li>
+                {%  else %}
+             <li class="nav-item ml-4">
+                <a href="{% url 'login-list' %}">Zaloguj się</a>
+            </li>
+                {% endif %}
+        </ul>
+    </nav>
+</header>
+<div class="jumbotron-fluid">
+  <h1 class="display-4">HR Question!</h1>
+  <p class="lead"></p>
+  <hr class="my-4">
+</div>
    <form action="" method="post">
    {% csrf_token %}
-   <p>Are you sure you want to delete "{{ object }}"?</p>
-    <input type="submit" value="Confirm">
+   <p>Czy na pewno chcesz usunąć to pytanie: <br/> "{{ object }}"?</p>
+    <input type="submit" value="Potwierdź">
    </form>
+<div class="footer">
+    <h4>HR Question! 2019  Justyna Kędzierska &copy; Wszelkie prawa zastrzeżone</h4>
+</div>
 {% endblock %}
 

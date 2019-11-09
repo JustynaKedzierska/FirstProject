@@ -1,21 +1,61 @@
-{%  load static %}
-<!DOCTYPE html>
-
-<html>
-    <head><meta charset="utf-8"></head>
-    <body>
-{#    <img src="{% static 'logo.png' %}">#}
-       {%  block content %} {%  endblock %}
-
-   <h1>Języki: </h1>
-        <ul>
-        {% for language in object_list %}
-           {{ language.name }}
-            {% empty %}
-        {% endfor %}
-            <h1> No languages yet.</h1>
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<header class="page-header">
+    <nav class="navbar navbar-dark">
+        <a href="/" class="navbar-brand main-logo"></a>
+            <ul class="nav nounderline text-uppercase">
+            <li class="nav-item ml-4">
+                <a href="{% url 'index' %}"> Przejdź do strony głównej </a>
+            </li>
+            <li class="nav-item ml-4">
+                <a href="{% url 'language-add' %}"> Dodaj język </a>
+            </li>
+                {% if user.is_authenticated %}
+            <li class="nav-item ml-4">
+                <a href="{% url 'logout-list' %}">Wyloguj się</a>
+            </li>
+                {%  else %}
+             <li class="nav-item ml-4">
+                <a href="{% url 'login-list' %}">Zaloguj się</a>
+            </li>
+                {% endif %}
         </ul>
-{#     <p> <a href="category/add"> Dodaj kategorię: </a></p>#}
-    </body>
-  {%  block footer %} {%  endblock %}
-</html>
+    </nav>
+</header>
+<div class="jumbotron-fluid">
+  <h1 class="display-4">HR Question!</h1>
+  <p class="lead"></p>
+  <hr class="my-4">
+</div>
+<div class="container">
+   <form action="" method="post">
+   {% csrf_token %}
+   {{ form.as_p }}
+    <h1>Języki:</h1><br>
+        <ol>
+         {% for language in object_list %}
+             <li>{{ language.name }} </li>
+                <a href="{% url 'language-update' language.id %}" class="btn btn-light btn-sm active" role="button" aria-pressed="true">Edytuj</a>
+                <a href="{% url 'language-delete' language.id %}" class="btn btn-light btn-sm active" role="button" aria-pressed="true">Usuń</a> <br>
+        {% endfor %}
+        </ol>
+   </form>
+</div>
+<div class="footer">
+    <h4>HR Question! 2019  Justyna Kędzierska &copy; Wszelkie prawa zastrzeżone</h4>
+</div>
+{%  endblock %}
+
+{% block tresc %}
+<form action="." method="post">
+  {% csrf_token %}
+  <p>Czy na pewno chcesz usunąć pizzę:<br />"{{ object }}"?</p>
+    <ol>Składniki:
+    {% for s in skladniki %}
+      <li>{{ s.nazwa }}</li>
+    {% endfor %}
+    </ol>
+  <button type="submit">Usuń</button>
+</form>
+{% endblock %}

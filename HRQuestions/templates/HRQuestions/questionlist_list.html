@@ -9,10 +9,10 @@
                 <a href="{% url 'index' %}"> Przejdź do strony głównej </a>
             </li>
             <li class="nav-item ml-4">
-                <a href="{% url 'question-add' %}"> Dodaj pytanie </a>
+                <a href="{% url 'question-list-add' %}"> Dodaj listę pytań </a>
             </li>
-            <li class="nav-item ml-4">
-                <a href="{% url 'search' %}"> Wyszukaj pytanie </a>
+             <li class="nav-item ml-4">
+                <a href="{% url 'search-questionlist' %}"> Wyszukaj listę pytań </a>
             </li>
                 {% if user.is_authenticated %}
             <li class="nav-item ml-4">
@@ -35,21 +35,16 @@
    <form action="" method="post">
    {% csrf_token %}
    {{ form.as_p }}
-    <h1>Pytania:</h1><br>
-    <ol>
-       {%  for question in object_list %}
-           <li><h2> {{ question.title }}</h2></li><br>
-{#            Typ pytania: {{ question.question_type }}<br>#}
-{#            Data dodania: {{ question.created }} <br>#}
-{#            Poziom: {{ question.level }} <br>#}
-{#            Jezyk: {{ question.language }} <br>#}
-{#            Publiczny: {{ question.public }} <br>#}
-{#            Treść: {{ question.content }} <br>#}
-       <a href="{% url 'question-detail' question.id %}" class="btn btn-light btn-sm active" role="button" aria-pressed="true">Szczegóły</a>
-       <a href="{% url 'question-update' question.id %}" class="btn btn-light btn-sm active" role="button" aria-pressed="true">Edytuj</a>
-       <a href="{% url 'question-delete' question.id %}" class="btn btn-light btn-sm active" role="button" aria-pressed="true">Usuń</a>
-       {%  endfor %}
-   </ol>
+    <h1>Listy pytań:</h1><br>
+        <ol>
+       {%  for questionlist in object_list %}
+           <li><h3>{{ questionlist.name }}</h3></li> <br>
+                Autor: {{ questionlist.author }} <br>
+               <a href="{% url 'question-list-detail' questionlist.id %}"class="btn btn-light btn-sm active" role="button" aria-pressed="true">Szczegóły</a>
+               <a href="{% url 'question-list-update' questionlist.id %}"class="btn btn-light btn-sm active" role="button" aria-pressed="true">Edytuj</a>
+               <a href="{% url 'question-list-delete' questionlist.id %}"class="btn btn-light btn-sm active" role="button" aria-pressed="true">Usuń</a>
+            {% endfor %}
+        </ol>
    </form>
 </div>
 <div class="paginator">
@@ -76,6 +71,7 @@
     {% endif %}
 </div>
 <div class="footer">
-    <h4>HR Question! 2019 Justyna Kędzierska &copy; Wszelkie prawa zastrzeżone</h4>
+    <h4>HR Question! 2019  Justyna Kędzierska &copy; Wszelkie prawa zastrzeżone</h4>
 </div>
 {% endblock %}
+

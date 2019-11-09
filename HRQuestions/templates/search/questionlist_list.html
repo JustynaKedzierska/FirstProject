@@ -8,7 +8,7 @@
                 <a href="{% url 'index' %}"> Przejdź do strony głównej </a>
             </li>
             <li class="nav-item ml-4">
-                <a href="{% url 'question-list' %}"> Przejdź do pytań </a>
+                <a href="{% url 'question-list' %}"> Przejdź do listy pytań </a>
             </li>
                 {% if user.is_authenticated %}
             <li class="nav-item ml-4">
@@ -27,12 +27,29 @@
   <p class="lead"></p>
   <hr class="my-4">
 </div>
-   <form action="" method="post">
-   {% csrf_token %}
-   {{ form.as_p }}
-   <input type="submit" value="Zapisz"/>
-   </form>
+<section class="index">
+     <div class="container">
+         <header>
+             <h1> Wyszukaj listę pytań</h1>
+         </header>
+         <div class="row">
+             <div class="col-6">
+                  <form method="get">
+                    {{ filter.form.as_p }}
+                    <button type="submit">Szukaj</button>
+                  </form>
+                  <ol>
+                  {% for questionlist in filter.qs %}
+                    <li>{{ questionlist.name }} {{ questionlist.author }} {{ questionlist.questions }}</li>
+                  {% endfor %}
+                 </ol>
+            </div>
+         </div>
+    </div>
+</section>
 <div class="footer">
     <h4>HR Question! 2019  Justyna Kędzierska &copy; Wszelkie prawa zastrzeżone</h4>
 </div>
 {% endblock %}
+
+

@@ -1,6 +1,51 @@
-{% extends "base.html" %}
-{% block tytul_h1 %}
-  HR Question
-     <p>{{ ctx }}</p>
-{% endblock %}
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<header class="page-header">
+    <nav class="navbar navbar-dark">
+        <a href="{% url 'question-list' %}" class="navbar-brand main-logo float-left"></a>
+            <ul class="nav nounderline text-uppercase">
+{#            <li class="nav-item ml-4">#}
+{#                <a href="{% url 'about' %}"> O aplikacji </a>#}
+{#            </li>#}
+                {% if user.is_authenticated %}
+            <li class="nav-item ml-4">
+                <a href="{% url 'logout-list' %}">Wyloguj się</a>
+            </li>
+                {%  else %}
+             <li class="nav-item ml-4">
+                <a href="{% url 'login-list' %}">Zaloguj się</a>
+            </li>
+                {% endif %}
+        </ul>
+    </nav>
+</header>
+<div class="jumbotron-fluid">
+  <h1 class="display-4">HR Question!</h1>
+  <p class="lead"></p>
+  <hr class="my-4">
+</div>
 
+<section class="index">
+     <div class="container">
+         <header>
+             <h1> Witaj w aplikacji HR Question ! {{ user.username }}</h1> <br>
+         </header>
+         <div class="row">
+            <div class="col-3">
+                 <p> <a href="{% url 'language-list' %}"> Języki </a></p>
+            </div>
+              <div class="col-3">
+                 <p> <a href="{% url 'question-list' %}"> Pytania </a></p>
+            </div>
+              <div class="col-3">
+                 <p> <a href="{% url 'question-list-list' %}"> Listy pytań </a></p>
+            </div>
+         </div>
+    </div>
+</section>
+</body>
+<div class="footer">
+    <h4>HR Question! 2019  Justyna Kędzierska &copy; Wszelkie prawa zastrzeżone</h4>
+</div>
+{% endblock %}
