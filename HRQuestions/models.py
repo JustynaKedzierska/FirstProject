@@ -49,7 +49,7 @@ class QuestionList(models.Model):
 
 
 class Interview(models.Model):
-    leader = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Rekruter')
+    recruiter = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Rekruter')
     first_name = models.CharField(max_length=64, verbose_name='Imię')
     last_name = models.CharField(max_length=64, verbose_name='Nazwisko')
     date = models.DateField(verbose_name='Data')
