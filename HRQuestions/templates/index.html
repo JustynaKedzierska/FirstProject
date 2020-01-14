@@ -10,11 +10,13 @@
 {#            </li>#}
                 {% if user.is_authenticated %}
             <li class="nav-item ml-4">
-                <a href="{% url 'logout-list' %}">Wyloguj się</a>
+                <a href="{% url 'logout-list' %}">Wyloguj</a>
+            </li> <li class="nav-item ml-4">
+                <a href="{% url 'reset_password' user.id %}">Zmień hasło</a>
             </li>
                 {%  else %}
              <li class="nav-item ml-4">
-                <a href="{% url 'login-list' %}">Zaloguj się</a>
+                <a href="{% url 'login-list' %}">Zaloguj</a>
             </li>
                 {% endif %}
         </ul>
@@ -29,22 +31,27 @@
 <section class="index">
      <div class="container">
          <header>
-             <h1> Witaj w aplikacji HR Question ! {{ user.username }}</h1> <br>
+             <h1> {{ user.username }}, witaj w aplikacji HR Question! </h1> <br>
          </header>
          <div class="row">
             <div class="col-3">
-                 <p> <a href="{% url 'language-list' %}"> Języki </a></p>
+                 <h4> <a href="{% url 'language-list' %}"> JĘZYKI </a></h4><br>
+                <p> Tu znajdziesz listę języków.</p><br><br><br>
+                <p>{ Liczba języków: {{ language_count }} }</p>
             </div>
               <div class="col-3">
-                 <p> <a href="{% url 'question-list' %}"> Pytania </a></p>
+                 <h4> <a href="{% url 'question-list' %}"> PYTANIA</a></h4><br>
+                   <p> Tu znajdziesz dostępne pytania. </p><br><br><br>
+                   <p> { Liczba pytań: {{ question_count }} }</p>
             </div>
               <div class="col-3">
-                 <p> <a href="{% url 'question-list-list' %}"> Listy pytań </a></p>
+                 <h4> <a href="{% url 'question-list-list' %}"> LISTY PYTAŃ </a></h4><br>
+                   <p>Tu znajdziesz listę pytań. </p><br><br>
+                  <p>{ Liczba list: {{ questionlist_count }} }</p>
             </div>
          </div>
     </div>
 </section>
-</body>
 <div class="footer">
     <h4>HR Question! 2019  Justyna Kędzierska &copy; Wszelkie prawa zastrzeżone</h4>
 </div>

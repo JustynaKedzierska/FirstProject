@@ -12,11 +12,11 @@
             </li>
                 {% if user.is_authenticated %}
             <li class="nav-item ml-4">
-                <a href="{% url 'logout-list' %}">Wyloguj się</a>
+                <a href="{% url 'logout-list' %}">Wyloguj</a>
             </li>
                 {%  else %}
              <li class="nav-item ml-4">
-                <a href="{% url 'login-list' %}">Zaloguj się</a>
+                <a href="{% url 'login-list' %}">Zaloguj</a>
             </li>
                 {% endif %}
         </ul>
@@ -27,11 +27,13 @@
   <p class="lead"></p>
   <hr class="my-4">
 </div>
+<div class="container">
    <form action="" method="post">
    {% csrf_token %}
    {{ form.as_p }}
    <input type="submit" value="Zapisz"/>
    </form>
+</div>
 <div class="footer">
     <h4>HR Question! 2019  Justyna Kędzierska &copy; Wszelkie prawa zastrzeżone</h4>
 </div>

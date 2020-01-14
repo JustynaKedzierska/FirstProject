@@ -13,11 +13,11 @@
             </li>
                 {% if user.is_authenticated %}
             <li class="nav-item ml-4">
-                <a href="{% url 'logout-list' %}">Wyloguj się</a>
+                <a href="{% url 'logout-list' %}">Wyloguj</a>
             </li>
                 {%  else %}
              <li class="nav-item ml-4">
-                <a href="{% url 'login-list' %}">Zaloguj się</a>
+                <a href="{% url 'login-list' %}">Zaloguj</a>
             </li>
                 {% endif %}
         </ul>

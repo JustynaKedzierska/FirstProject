@@ -7,11 +7,11 @@
             </li>
                 {% if user.is_authenticated %}
             <li class="nav-item ml-4">
-                <a class="nav-link" href="{% url 'logout-list' %}">Wyloguj się</a>
+                <a class="nav-link" href="{% url 'logout-list' %}">Wyloguj</a>
             </li>
                 {%  else %}
              <li class="nav-item ml-4">
-                <a class="nav-link" href="{% url 'login-list' %}">Zaloguj się</a>
+                <a class="nav-link" href="{% url 'login-list' %}">Zaloguj</a>
             </li>
                 {% endif %}
         </ul>

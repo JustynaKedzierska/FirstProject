@@ -3,7 +3,8 @@
 {% block content %}
 <header class="page-header">
     <nav class="navbar navbar-dark">
-        <a href="/" class="navbar-brand main-logo"></a>
+        <a href="/" class="navbar-brand main-logo">
+        </a>
             <ul class="nav nounderline text-uppercase">
             <li class="nav-item ml-4">
                 <a href="{% url 'index' %}"> Przejdź do strony głównej </a>
@@ -16,11 +17,11 @@
             </li>
                 {% if user.is_authenticated %}
             <li class="nav-item ml-4">
-                <a href="{% url 'logout-list' %}">Wyloguj się</a>
+                <a href="{% url 'logout-list' %}">Wyloguj</a>
             </li>
                 {%  else %}
              <li class="nav-item ml-4">
-                <a href="{% url 'login-list' %}">Zaloguj się</a>
+                <a href="{% url 'login-list' %}">Zaloguj</a>
             </li>
                 {% endif %}
         </ul>
@@ -32,48 +33,33 @@
   <hr class="my-4">
 </div>
 <div class="container">
+{#<div>#}
+{#{% if is_paginated %}#}
+{#  <nav aria-label="Page navigation conatiner"></nav>#}
+{#    <ul class="pagination justify-content-center">#}
+{#        {% if page_obj.has_previous %}#}
+{#        <li><a href="?page={{ page_obj.previous_page_number }}" class="page-link">&laquo; POPRZEDNIA </a></li>#}
+{#        {% endif %}#}
+{#        {% if page_obj.has_next %}#}
+{#        <li><a href="?page={{ page_obj.next_page_number }}" class="page-link"> NASTĘPNA &raquo;</a></li>#}
+{#    {% endif %}#}
+{#    </ul>#}
+{#    </nav>#}
+{#    {% endif %}#}
    <form action="" method="post">
-   {% csrf_token %}
-   {{ form.as_p }}
-    <h1>Pytania:</h1><br>
-    <ol>
-       {%  for question in object_list %}
-           <li><h2> {{ question.title }}</h2></li><br>
-{#            Typ pytania: {{ question.question_type }}<br>#}
-{#            Data dodania: {{ question.created }} <br>#}
-{#            Poziom: {{ question.level }} <br>#}
-{#            Jezyk: {{ question.language }} <br>#}
-{#            Publiczny: {{ question.public }} <br>#}
-{#            Treść: {{ question.content }} <br>#}
-       <a href="{% url 'question-detail' question.id %}" class="btn btn-light btn-sm active" role="button" aria-pressed="true">Szczegóły</a>
-       <a href="{% url 'question-update' question.id %}" class="btn btn-light btn-sm active" role="button" aria-pressed="true">Edytuj</a>
-       <a href="{% url 'question-delete' question.id %}" class="btn btn-light btn-sm active" role="button" aria-pressed="true">Usuń</a>
-       {%  endfor %}
-   </ol>
+       {% csrf_token %}
+       {{ form.as_p }}
+        <h1>Pytania: </h1><br>
+       <h4> { Liczba pytań: {{ question_count }} }</h4><br>
+        <ol>
+           {%  for question in object_list %}
+               <li><h2> {{ question.title | upper}}</h2></li><br>
+           <a href="{% url 'question-detail' question.id %}" class="btn btn-light btn-sm active" role="button" aria-pressed="true">Szczegóły</a>
+           <a href="{% url 'question-update' question.id %}" class="btn btn-light btn-sm active" role="button" aria-pressed="true">Edytuj</a>
+           <a href="{% url 'question-delete' question.id %}" class="btn btn-light btn-sm active" role="button" aria-pressed="true">Usuń</a>
+           {%  endfor %}
+       </ol>
    </form>
-</div>
-<div class="paginator">
-    {% if is_paginated %}
-      <ul class="pagination">
-        {% if page_obj.has_previous %}
-          <li><a href="?page={{ page_obj.previous_page_number }}">&laquo;</a></li>
-        {% else %}
-          <li class="disabled"><span>&laquo;</span></li>
-        {% endif %}
-        {% for i in paginator.page_range %}
-          {% if page_obj.number == i %}
-            <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
-          {% else %}
-            <li><a href="?page={{ i }}">{{ i }}</a></li>
-          {% endif %}
-        {% endfor %}
-        {% if page_obj.has_next %}
-          <li><a href="?page={{ page_obj.next_page_number }}">&raquo;</a></li>
-        {% else %}
-          <li class="disabled"><span>&raquo;</span></li>
-        {% endif %}
-      </ul>
-    {% endif %}
 </div>
 <div class="footer">
     <h4>HR Question! 2019 Justyna Kędzierska &copy; Wszelkie prawa zastrzeżone</h4>

@@ -12,16 +12,31 @@ from django_filters.views import FilterView
 
 from HRQuestions.models import Question, Language, QuestionList
 from .filters import QuestionFilter, QuestionListFilter
-from .forms import LoginForm, AddUserForm
+from .forms import LoginForm, AddUserForm, ResetPasswordForm, QuestionListModelForm, QuestionUpdateModelForm
 
 
 class HomePageView(TemplateView):
     template_name = 'landing_page.html'
 
 
-class IndexView(View):
-    def get(self, request):
-        return render(request, 'index.html')
+# class IndexView(View):
+#     def get(self, request):
+#         question_count = Question.objects.all().count()
+#         questionlist_count = QuestionList.objects.all().count()
+#
+#         context = {'question_count': question_count,
+#                    'questionlist_count': questionlist_count}
+#         return render(request, template_name='index.html', context=context)
+
+class IndexView(TemplateView):
+    template_name = 'index.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(IndexView, self).get_context_data(**kwargs)
+        context['question_count'] = Question.objects.all().count()
+        context['questionlist_count'] = QuestionList.objects.all().count()
+        context['language_count'] = Language.objects.all().count()
+        return context
 
 
 class LoginView(View):
@@ -40,8 +55,6 @@ class LoginView(View):
                 return redirect('index')
             else:
                 return render(request, 'HRQuestions/login_form.html', {'form': form})
-
-            return render(request, 'HRQuestions/login_form.html')
         else:
             return render(request, 'HRQuestions/login_form.html', {'form': form})
 
@@ -53,7 +66,6 @@ class LogoutView(View):
 
 
 class UserCreateView(CreateView):
-
     template_name = 'AUTH/add_user_form.html'
     model = User
     form_class = AddUserForm
@@ -75,10 +87,15 @@ class QuestionCreateView(LoginRequiredMixin, CreateView):
 
 class QuestionListView(LoginRequiredMixin, ListView):
     model = Question
-    paginate_by = 5
+    paginate_by = 15
     template_name = 'question_list.html'
-    context_object_name = 'question'
-    queryset = Question.objects.all()
+    # context_object_name = 'question'
+    # queryset = Question.objects.all()
+
+    def get_context_data(self, **kwargs):
+        context = super(QuestionListView, self).get_context_data(**kwargs)
+        context['question_count'] = Question.objects.count()
+        return context
 
 
 class QuestionUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
@@ -106,6 +123,11 @@ class LanguageListView(LoginRequiredMixin, ListView):
     model = Language
     paginate_by = 10
 
+    def get_context_data(self, **kwargs):
+        context = super(LanguageListView, self).get_context_data(**kwargs)
+        context['language_count'] = Language.objects.all().count()
+        return context
+
 
 class LanguageUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     permission_required = 'HRQuestions.update_language'
@@ -123,8 +145,8 @@ class LanguageDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView
 
 class QuestionListCreateView(LoginRequiredMixin, CreateView):
     template_name = 'questionlist_create.html'
-    model = QuestionList
-    fields = ['name', 'author', 'questions']
+    # model = QuestionList
+    form_class = QuestionListModelForm
     success_url = reverse_lazy('question-list-list')
 
 
@@ -134,6 +156,11 @@ class QuestionListListView(LoginRequiredMixin, ListView):
     context_object_name = 'questionlist'
     paginate_by = 5
     queryset = QuestionList.objects.all()
+
+    def get_context_data(self, **kwargs):
+        context = super(QuestionListListView, self).get_context_data(**kwargs)
+        context['questionlist_count'] = QuestionList.objects.all().count()
+        return context
 
 
 class QuestionFilterView(FilterView):
@@ -154,7 +181,8 @@ class QuestionDetailView(DetailView):
 class QuestionListUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     permission_required = 'HRQuestions.update_questionlist'
     model = QuestionList
-    fields = ['name', 'author', 'questions']
+    form_class = QuestionUpdateModelForm
+    # fields = ['name', 'author', 'questions']
     template_name_suffix = '_update_form'
     success_url = reverse_lazy('question-list-list')
 
@@ -168,3 +196,19 @@ class QuestionListDeleteView(LoginRequiredMixin, PermissionRequiredMixin, Delete
 class QuestionListFilterView(FilterView):
     filterset_class = QuestionListFilter
     template_name = 'search/questionlist_list.html'
+
+
+class ResetPasswordView(FormView):
+    template_name = 'reset_password.html'
+    form_class = ResetPasswordForm
+    success_url = reverse_lazy('login-list')
+
+    def form_valid(self, form):
+        user_id = self.kwargs['user_id']
+        user = User.objects.get(id=user_id)
+        user.set_password(form.cleaned_data["password"])
+        user.save()
+
+        return super(ResetPasswordView, self).form_valid(form)
+
+

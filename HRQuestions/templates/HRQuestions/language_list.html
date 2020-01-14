@@ -13,11 +13,11 @@
             </li>
                 {% if user.is_authenticated %}
             <li class="nav-item ml-4">
-                <a href="{% url 'logout-list' %}">Wyloguj się</a>
+                <a href="{% url 'logout-list' %}">Wyloguj</a>
             </li>
                 {%  else %}
              <li class="nav-item ml-4">
-                <a href="{% url 'login-list' %}">Zaloguj się</a>
+                <a href="{% url 'login-list' %}">Zaloguj</a>
             </li>
                 {% endif %}
         </ul>
@@ -33,9 +33,10 @@
    {% csrf_token %}
    {{ form.as_p }}
     <h1>Języki:</h1><br>
+    <h4> { Liczba języków: {{ language_count }} }</h4><br><br>
         <ol>
          {% for language in object_list %}
-             <li>{{ language.name }} </li>
+            <li><h2>{{ language.name | upper}}</h2></li><br>
                 <a href="{% url 'language-update' language.id %}" class="btn btn-light btn-sm active" role="button" aria-pressed="true">Edytuj</a>
                 <a href="{% url 'language-delete' language.id %}" class="btn btn-light btn-sm active" role="button" aria-pressed="true">Usuń</a> <br>
         {% endfor %}
@@ -46,16 +47,3 @@
     <h4>HR Question! 2019  Justyna Kędzierska &copy; Wszelkie prawa zastrzeżone</h4>
 </div>
 {%  endblock %}
-
-{% block tresc %}
-<form action="." method="post">
-  {% csrf_token %}
-  <p>Czy na pewno chcesz usunąć pizzę:<br />"{{ object }}"?</p>
-    <ol>Składniki:
-    {% for s in skladniki %}
-      <li>{{ s.nazwa }}</li>
-    {% endfor %}
-    </ol>
-  <button type="submit">Usuń</button>
-</form>
-{% endblock %}
