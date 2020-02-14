@@ -1,1 +1,1 @@
-# HRQuestion - aplication for HR
+# HRQuestion - application for HR
