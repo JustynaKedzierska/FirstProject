@@ -1,6 +1,6 @@
 # HRQuestion - application for HR
 
-Technologies
+Technologies:
 
 Project is created with:
 
