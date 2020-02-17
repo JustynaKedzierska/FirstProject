@@ -22,7 +22,7 @@ from HRQuestions.views import QuestionCreateView, LanguageCreateView, LanguageLi
     LanguageUpdateView, QuestionListView, QuestionUpdateView, LanguageDeleteView, QuestionListCreateView, UserListView, \
     QuestionListListView, QuestionDeleteView, IndexView, LoginView, LogoutView, QuestionFilterView, \
     QuestionListDetailView, QuestionDetailView, QuestionListUpdateView, QuestionListDeleteView, QuestionListFilterView, \
-    HomePageView, UserCreateView
+    HomePageView, UserCreateView, ResetPasswordView
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -48,5 +48,5 @@ urlpatterns = [
     url(r'^question_list/update/(?P<pk>(\d)+)', QuestionListUpdateView.as_view(), name="question-list-update"),
     url(r'^question_list/delete/(?P<pk>(\d)+)', QuestionListDeleteView.as_view(), name="question-list-delete"),
     url(r'^search_questionlist/$', QuestionListFilterView.as_view(), name='search-questionlist'),
-
+    url(r'^reset_password/(?P<user_id>(\d)+)', ResetPasswordView.as_view(), name='reset_password'),
 ]

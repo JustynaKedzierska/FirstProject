@@ -3,7 +3,7 @@ body{
 	font-family: "Open Sans", sans-serif;
   	font-weight: 400;
 	color: #464646;
-	font-size: 17px;
+	font-size: 20px;
 	text-align: center;
 }
 /* unvisited link */
@@ -27,10 +27,11 @@ a:active {
 }
 .jumbotron-fluid{
 	background-color: #447e9b;
+	font-size: 80px;
 }
 .container {
-	width: 1100px;
-	height: 500px;
+	width: 100%;
+	height: 780px;
 	margin-left: auto;
 	margin-right: auto;
 	margin-top: 20px;
@@ -43,7 +44,7 @@ a:active {
 	background: repeat url("/static/images/vintage-concrete1.png");
 }
 .display-4 {
-	font-size: 70px;
+	font-size: 80px;
 	background-color: #447e9b;
 
 }
@@ -54,15 +55,22 @@ a:active {
 	text-align: center;
 	background-color: #447e9b;
 }
-.col-3{
+.col-3 {
 	/*background-color: #888888;*/
 	height: 600px;
-	width: 1100px;
+	width: 1200px;
 	padding: 100px;
 	font-size: 25px;
 	margin: auto;
 }
-
+.col-3 p{
+	font-size: 20px;
+	color: black;
+}
+.col-3 a{
+	font-size: 50px;
+	color: black;
+}
 span{
 	font-size: 30px;
 }
@@ -104,8 +112,6 @@ span{
 .float-left{
 	text-align: left;
 }
-.pagination{
-	text-align: center;
-	bottom: 20px;
-	margin: auto;
+.pagination justify-content-center{
+	position: fixed;
 }
